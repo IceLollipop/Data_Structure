@@ -4,14 +4,14 @@ import java.util.Arrays;
 
 public class QuickSort {
 	public static void main(String[] args) {
-		int[] array = {0,1,2,3,-4,-7,-7,-10};
-//		int[] array = new int[10000];
+		int[] array = {0,1,2,3,-4,-7,7,-10};
+//		int[] array = new int[10];
 //		for(int index = 0;index<array.length;index++) {
-//			array[index] =(int) (Math.random()*10000);
+//			array[index] =(int) (Math.random()*10);
 //		}
 //		Arrays.sort(array);
 		System.out.println("快速排序前数组:"+Arrays.toString(array));
-		quickSort(array,0,array.length-1);
+		quickSortSample(array,0,array.length-1);
 		System.out.println("快速排序后数组:"+Arrays.toString(array));
 	}
 	
@@ -68,4 +68,47 @@ public class QuickSort {
 		}
 	}
 	
+	
+	public static void quickSortSample(int[] array,int left,int right) {
+		int temp;
+		int curL = left;
+		int curR = right;
+		int compareValue = array[(right-left)/2];
+		
+		while(curL<curR) {
+			while(curL<curR && array[curL]<=compareValue) {
+				curL++;
+			}
+			while(curL<curR && array[curR]>=compareValue) {
+				curL--;
+			}
+			
+			if(curL>=curR) {
+				break;
+			}
+			temp = array[curL];
+			array[curL] = array[curR];
+			array[curR] = temp;
+			
+			if(array[curL] == compareValue) {
+				curL++;
+			}
+			if(array[curR] == compareValue) {
+				curR--;
+			}
+		}
+		if(curL == curR) {
+			curL++;
+			curR--;
+		}
+		//向左递归
+		if(left < curR) {
+			quickSort(array, left, curR);
+		}
+		//向右递归
+		if(right > curL) {
+			quickSort(array, curL, right);
+		}
+		
+	}
 }
